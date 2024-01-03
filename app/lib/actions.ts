@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
+import { signOut } from 'next-auth/react';
 
 export type State = {
   errors?: {
@@ -16,7 +17,7 @@ export type State = {
 };
 
 export async function authenticate(
-  prevstate: string | undefined,
+  prevState: string | undefined,
   formData: FormData,
 ) {
   try {
@@ -32,6 +33,9 @@ export async function authenticate(
     }
     throw error;
   }
+}
+export async function logout() {
+  await signOut();
 }
 
 export async function createInvoice(prevState: State, formData: FormData) {
